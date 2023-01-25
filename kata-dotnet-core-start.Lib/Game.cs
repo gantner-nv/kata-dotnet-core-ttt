@@ -4,6 +4,16 @@ public class Game
 {
     public List<Player> GetPlayers()
     {
-        return new List<Player>();
+        Player p1 = new Player()
+        {
+            Name = "x"
+        };
+        
+        Player p2 = new Player()
+        {
+            Name = "o"
+        };
+         
+        return new List<Player>(){p1,p2};
     }
 }
