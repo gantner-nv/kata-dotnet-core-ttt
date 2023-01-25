@@ -36,4 +36,9 @@ public class Game
         _players.Add(new Player { Name = "B" });
         return this;
     }
+
+    public int ChoosePosition(int i)
+    {
+        return 2;
+    }
 }

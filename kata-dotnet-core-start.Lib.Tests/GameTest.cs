@@ -29,4 +29,17 @@ public class GameTest
         Assert.NotNull(boards);
         Assert.Equal(9, boards.Positions.Count());
     }
+
+    [Fact]
+    public void PlayerOne_ShouldChoose_OnePosition()
+    {
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var position = game.ChoosePosition(2);
+
+        //assert
+        Assert.Equal(2, position);
+    }
 }
