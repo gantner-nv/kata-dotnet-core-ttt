@@ -3,25 +3,37 @@
 public class Game
 {
     private List<Player> _players;
-    public IEnumerable<Player> Players => _players;
+    
+    private GameBoard _board;
 
-    public void Add(Player player)
+    private Game()
     {
-        
+        _players = new List<Player>();
+        _board = new GameBoard();
     }
 
-    public List<Player> GetPlayers()
+    public IEnumerable<Player> Players => _players;
+    
+    public GameBoard Board => _board;
+
+    public static Game Init()
     {
-        Player p1 = new Player()
-        {
-            Name = "x"
-        };
+        return new Game()
+            .AddPlayer()
+            .CreateBoard();
+    }
 
-        Player p2 = new Player()
-        {
-            Name = "o"
-        };
+    private Game CreateBoard()
+    {
+        var numbers = Enumerable.Range(1, 9);
+        _board.AddPositions(numbers);
+        return this;
+    }
 
-        return new List<Player>() { p1, p2 };
+    private Game AddPlayer()
+    {
+        _players.Add(new Player { Name = "A" });
+        _players.Add(new Player { Name = "B" });
+        return this;
     }
 }

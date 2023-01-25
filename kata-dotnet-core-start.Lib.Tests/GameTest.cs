@@ -6,20 +6,27 @@ public class GameTest
     public void Game_ShouldHave_TwoPlayers()
     {
         //arrange
-        var game = new Game();
+        var game = Game.Init();
 
         //act
-        var players = game.GetPlayers();
+        var players = game.Players;
 
         //assert
         Assert.NotNull(players);
-        Assert.NotEmpty(players);
-        Assert.Equal(2, players.Count);
+        Assert.Equal(2, players.Count());
     }
-    
+
     [Fact]
-    public Player (string _name)
+    public void GameBoard_ShouldHave_9_Position()
     {
-        
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var boards = game.Board;
+
+        //assert
+        Assert.NotNull(boards);
+        Assert.Equal(9, boards.Positions.Count());
     }
 }
