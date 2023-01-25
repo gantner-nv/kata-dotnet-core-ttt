@@ -41,4 +41,9 @@ public class Game
     {
         return 2;
     }
+
+    public string GetValueAtPosition(int i)
+    {
+        return "x";
+    }
 }

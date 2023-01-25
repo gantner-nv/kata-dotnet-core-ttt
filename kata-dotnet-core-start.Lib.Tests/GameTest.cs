@@ -40,6 +40,6 @@ public class GameTest
         var position = game.ChoosePosition(2);
 
         //assert
-        Assert.Equal(2, position);
+        Assert.Equal("x", game.GetValueAtPosition(2));
     }
 }
