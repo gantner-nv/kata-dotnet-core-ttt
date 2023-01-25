@@ -16,4 +16,10 @@ public class GameTest
         Assert.NotEmpty(players);
         Assert.Equal(2, players.Count);
     }
+    
+    [Fact]
+    public Player (string _name)
+    {
+        
+    }
 }
