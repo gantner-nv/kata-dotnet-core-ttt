@@ -42,18 +42,17 @@ public class GameTest
         //assert
         Assert.True(board.Empty());
     }
-    
 
     [Fact]
-    public void PlayerOne_ShouldChoose_OnePosition()
+    public void PlayerOne_ShouldChoose_EmptyBox()
     {
         //arrange
         var game = Game.Init();
 
         //act
-        var position = game.ChoosePosition(2);
+        var box = game.ChoosePosition(2);
 
         //assert
-        Assert.Equal("x", game.GetValueAtPosition(2));
+        Assert.Equal(string.Empty, game.GetValueAtPosition(box));
     }
 }

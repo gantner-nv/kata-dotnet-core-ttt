@@ -39,11 +39,11 @@ public class Game
 
     public int ChoosePosition(int i)
     {
-        return 2;
+        return i;
     }
 
     public string GetValueAtPosition(int i)
     {
-        return "x";
+        return Board.Boxes[i];
     }
 }
