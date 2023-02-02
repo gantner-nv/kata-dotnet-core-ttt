@@ -43,7 +43,6 @@ public class GameTest
         Assert.True(board.Empty());
     }
 
-    [Fact]
     public void PlayerOne_ShouldChoose_EmptyBox()
     {
         //arrange

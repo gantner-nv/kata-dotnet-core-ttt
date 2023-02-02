@@ -37,10 +37,9 @@ public class Game
         return this;
     }
 
-    public int ChoosePosition(int i)
+    public int ChoosePosition(int box)
     {
-        Board.Boxes[i] = "X";
-        return i;
+        return ChoosePosition("X", box);
     }
 
     public string GetValueAtPosition(int i)
