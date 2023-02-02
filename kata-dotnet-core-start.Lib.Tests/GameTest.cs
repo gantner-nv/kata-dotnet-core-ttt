@@ -44,18 +44,18 @@ public class GameTest
     }
 
     [Fact]
-    public void PlayerOne_ShouldFill_Box()
+    public void Selected_Box_MustBeEmpty()
     {
         //arrange
         var game = Game.Init();
 
         //act
-        var box = game.ChoosePosition(2);
+        var box = game.HasValue(2);
 
         //assert
-        Assert.Equal("X", game.GetValueAtPosition(box));
+        Assert.False(box);
     }
-
+    
     [Fact]
     public void PlayerTwo_ShouldFill_Box()
     {
@@ -63,9 +63,45 @@ public class GameTest
         var game = Game.Init();
 
         //act
-        var box = game.ChoosePosition("O", 2);
+        var result = game.ChoosePosition("O", 2);
 
         //assert
-        Assert.Equal("O", game.GetValueAtPosition(box));
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void NextPlayer_WillBe_PlayerTwo()
+    {
+        //arrange
+        var game = Game.Init();
+        game.ChoosePosition("X", 2);
+
+        //act
+        var result = game.ChoosePosition("O", 3);
+
+        //assert
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void GameIsOver_When_AllBoxesFilled_Without_MatchingWinningCriteria()
+    {
+        //arrange
+        var game = Game.Init();
+        game.ChoosePosition("X", 1);
+        game.ChoosePosition("O", 2);
+        game.ChoosePosition("X", 3);
+        game.ChoosePosition("X", 4);
+        game.ChoosePosition("X", 5);
+        game.ChoosePosition("O", 6);
+        game.ChoosePosition("O", 7);
+        game.ChoosePosition("X", 8);
+        game.ChoosePosition("X", 9);
+
+        //act
+        var result = game.GameStatus();
+
+        //assert
+        Assert.Equal("Game Over", result);
     }
 }

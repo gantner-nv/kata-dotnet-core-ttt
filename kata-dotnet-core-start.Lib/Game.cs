@@ -3,8 +3,9 @@
 public class Game
 {
     private List<Player> _players;
-
     private GameBoard _board;
+    private IList<int> rowStartNumber = new List<int> { 1, 4, 7 };
+    private IList<int> columnStartNumber = new List<int> { 1, 2, 3 };
 
     private Game()
     {
@@ -16,11 +17,14 @@ public class Game
 
     public GameBoard Board => _board;
 
-    public static Game Init()
+    public string CurrentPlayer { get; private set; }
+
+    public static Game Init(string player = "X")
     {
         return new Game()
             .AddPlayer()
-            .CreateBoard();
+            .CreateBoard()
+            .SwitchPlayer(player);
     }
 
     private Game CreateBoard()
@@ -36,20 +40,64 @@ public class Game
         _players.Add(new Player { Name = "B" });
         return this;
     }
-    
-    public int ChoosePosition(int box)
-    {
-        return ChoosePosition("X", box);
-    }
 
-    public string GetValueAtPosition(int i)
-    {
-        return Board.Boxes[i];
-    }
+    public bool ChoosePosition(int box) 
+        => ChoosePosition("X", box);
 
-    public int ChoosePosition(string playerName, int box)
+    public bool ChoosePosition(string playerName, int box)
     {
+        if (HasValue(box) && ValidPlayer(playerName))
+            return false;
+        
         Board.Boxes[box] = playerName;
-        return box;
+        SwitchPlayer(playerName == "X" ? "O" : "X");
+        return true;
+    }
+    
+    public bool HasValue(int box)
+    {
+        return !string.IsNullOrEmpty(Board.Boxes[box]);
+    }
+
+    public Game SwitchPlayer(string player)
+    {
+        CurrentPlayer = player;
+        return this;
+    }
+
+    private bool ValidPlayer(string player)
+    {
+        return CurrentPlayer != player;
+    }
+
+    public string GameStatus()
+    {
+        if (!IsRowMatched() && !IsColumnMatched())
+            return "Game Over";
+
+        return string.Empty;
+    }
+    
+    private bool IsRowMatched()
+    {
+       return rowStartNumber.Count(CheckRow) == rowStartNumber.Count;
+    }
+
+    private bool CheckRow(int start)
+    {
+        var range = Board.Boxes.Where(x => x.Key >= start && x.Key <= start + 2);
+        return  range.Select(x => x.Value).Distinct().Count() == 1;
+    }
+    
+    private bool IsColumnMatched()
+    {
+        return columnStartNumber.Count(CheckColumn) == rowStartNumber.Count;
+    }
+    
+    private bool CheckColumn(int start)
+    {
+        var range = Board.Boxes.Where(x => 
+            x.Key == start || x.Key == start + 3 || x.Key == start + 6);
+        return  range.Select(x => x.Value).Distinct().Count() == 1;
     }
 }
