@@ -2,13 +2,17 @@
 
 public class GameBoard
 {
-    private List<int> _positions = new List<int>();
-    public IEnumerable<int> Positions => _positions;
-    public Dictionary<int, string> Boxes = new Dictionary<int, string>();
-
+    private IDictionary<int, string> _boxes = new Dictionary<int, string>();
+    public IDictionary<int, string> Boxes => _boxes;
+    
     public void AddPositions(IEnumerable<int> numbers)
     {
-        _positions.AddRange(numbers);
-        Boxes = numbers.Select(x => new KeyValuePair(x, string.Empty));
+        foreach (var number in numbers)
+            _boxes.Add(number, string.Empty);
+    }
+
+    public bool Empty()
+    {
+        return _boxes.Any(s => _boxes.Values.All(string.IsNullOrEmpty));
     }
 }

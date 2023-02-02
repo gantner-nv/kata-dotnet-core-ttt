@@ -27,8 +27,22 @@ public class GameTest
 
         //assert
         Assert.NotNull(boards);
-        Assert.Equal(9, boards.Positions.Count());
+        Assert.Equal(9, boards.Boxes.Count());
     }
+    
+    [Fact]
+    public void GameBoard_ShouldBe_Empty()
+    {
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var board = game.Board;
+
+        //assert
+        Assert.True(board.Empty());
+    }
+    
 
     [Fact]
     public void PlayerOne_ShouldChoose_OnePosition()
