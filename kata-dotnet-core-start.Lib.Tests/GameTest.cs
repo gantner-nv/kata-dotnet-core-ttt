@@ -91,12 +91,12 @@ public class GameTest
         game.ChoosePosition("X", 1);
         game.ChoosePosition("O", 2);
         game.ChoosePosition("X", 3);
-        game.ChoosePosition("X", 4);
-        game.ChoosePosition("X", 5);
         game.ChoosePosition("O", 6);
+        game.ChoosePosition("X", 4);
         game.ChoosePosition("O", 7);
+        game.ChoosePosition("X", 5);
+        game.ChoosePosition("O", 9);
         game.ChoosePosition("X", 8);
-        game.ChoosePosition("X", 9);
 
         //act
         var result = game.GameStatus();
@@ -104,4 +104,23 @@ public class GameTest
         //assert
         Assert.Equal("Game Over", result);
     }
+    
+    [Fact]
+    public void GameIsOver_When_Row_IsMatched()
+    {
+        //arrange
+        var game = Game.Init();
+        game.ChoosePosition("X", 1);
+        game.ChoosePosition("O", 6);
+        game.ChoosePosition("X", 2);
+        game.ChoosePosition("O", 7);
+        game.ChoosePosition("X", 3);
+
+        //act
+        var result = game.GameStatus();
+
+        //assert
+        Assert.Equal("Winner is X", result);
+    }
+    
 }

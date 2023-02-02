@@ -6,6 +6,7 @@ public class Game
     private GameBoard _board;
     private IList<int> rowStartNumber = new List<int> { 1, 4, 7 };
     private IList<int> columnStartNumber = new List<int> { 1, 2, 3 };
+    public string _winner;
 
     private Game()
     {
@@ -41,19 +42,19 @@ public class Game
         return this;
     }
 
-    public bool ChoosePosition(int box) 
+    public bool ChoosePosition(int box)
         => ChoosePosition("X", box);
 
     public bool ChoosePosition(string playerName, int box)
     {
         if (HasValue(box) && ValidPlayer(playerName))
             return false;
-        
+
         Board.Boxes[box] = playerName;
         SwitchPlayer(playerName == "X" ? "O" : "X");
         return true;
     }
-    
+
     public bool HasValue(int box)
     {
         return !string.IsNullOrEmpty(Board.Boxes[box]);
@@ -72,32 +73,37 @@ public class Game
 
     public string GameStatus()
     {
+        if (IsRowMatched())
+            return $"Winner is {_winner}";
         if (!IsRowMatched() && !IsColumnMatched())
             return "Game Over";
 
         return string.Empty;
     }
-    
+
     private bool IsRowMatched()
     {
-       return rowStartNumber.Count(CheckRow) == rowStartNumber.Count;
+        return rowStartNumber.Count(CheckRow) > 0;
     }
 
     private bool CheckRow(int start)
     {
         var range = Board.Boxes.Where(x => x.Key >= start && x.Key <= start + 2);
-        return  range.Select(x => x.Value).Distinct().Count() == 1;
+        var isWin = range.Select(x => x.Value).Distinct().Count() == 1;
+        if (isWin)
+            _winner = range.Select(x => x.Value).First();
+        return isWin;
     }
-    
+
     private bool IsColumnMatched()
     {
         return columnStartNumber.Count(CheckColumn) == rowStartNumber.Count;
     }
-    
+
     private bool CheckColumn(int start)
     {
-        var range = Board.Boxes.Where(x => 
+        var range = Board.Boxes.Where(x =>
             x.Key == start || x.Key == start + 3 || x.Key == start + 6);
-        return  range.Select(x => x.Value).Distinct().Count() == 1;
+        return range.Select(x => x.Value).Distinct().Count() == 1;
     }
 }
