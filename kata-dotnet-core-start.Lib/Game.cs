@@ -39,6 +39,7 @@ public class Game
 
     public int ChoosePosition(int i)
     {
+        Board.Boxes[i] = "X";
         return i;
     }
 

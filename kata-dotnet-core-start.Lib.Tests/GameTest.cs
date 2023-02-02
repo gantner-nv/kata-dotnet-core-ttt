@@ -55,4 +55,17 @@ public class GameTest
         //assert
         Assert.Equal(string.Empty, game.GetValueAtPosition(box));
     }
+    
+    [Fact]
+    public void PlayerOne_ShouldFill_Box()
+    {
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var box = game.ChoosePosition(2);
+
+        //assert
+        Assert.Equal("X", game.GetValueAtPosition(box));
+    }
 }
