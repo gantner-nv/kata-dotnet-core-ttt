@@ -3,7 +3,7 @@
 public class Game
 {
     private List<Player> _players;
-    
+
     private GameBoard _board;
 
     private Game()
@@ -13,7 +13,7 @@ public class Game
     }
 
     public IEnumerable<Player> Players => _players;
-    
+
     public GameBoard Board => _board;
 
     public static Game Init()
@@ -46,5 +46,11 @@ public class Game
     public string GetValueAtPosition(int i)
     {
         return Board.Boxes[i];
+    }
+
+    public int ChoosePosition(string playerName, int box)
+    {
+        Board.Boxes[box] = playerName;
+        return box;
     }
 }

@@ -29,7 +29,7 @@ public class GameTest
         Assert.NotNull(boards);
         Assert.Equal(9, boards.Boxes.Count());
     }
-    
+
     [Fact]
     public void GameBoard_ShouldBe_Empty()
     {
@@ -55,7 +55,7 @@ public class GameTest
         //assert
         Assert.Equal(string.Empty, game.GetValueAtPosition(box));
     }
-    
+
     [Fact]
     public void PlayerOne_ShouldFill_Box()
     {
@@ -67,5 +67,18 @@ public class GameTest
 
         //assert
         Assert.Equal("X", game.GetValueAtPosition(box));
+    }
+
+    [Fact]
+    public void PlayerTwo_ShouldFill_Box()
+    {
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var box = game.ChoosePosition("O", 2);
+
+        //assert
+        Assert.Equal("O", game.GetValueAtPosition(box));
     }
 }
