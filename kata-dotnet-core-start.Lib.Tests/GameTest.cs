@@ -56,6 +56,20 @@ public class GameTest
         Assert.False(box);
     }
     
+    [Theory]
+    [InlineData()]
+    public void Same_Player_Should_Not_Take_Next_Turn()
+    {
+        //arrange
+        var game = Game.Init();
+
+        //act
+        var result = game.ChoosePosition("O", 2);
+
+        //assert
+        Assert.True(result);
+    }
+    
     [Fact]
     public void PlayerTwo_ShouldFill_Box()
     {

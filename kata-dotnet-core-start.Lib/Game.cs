@@ -47,7 +47,9 @@ public class Game
 
     public bool ChoosePosition(string playerName, int box)
     {
-        if (HasValue(box) && ValidPlayer(playerName))
+        if (!ValidPlayer(playerName))
+            throw new InvalidOperationException("Its not your turn.");
+        if (HasValue(box))
             return false;
 
         Board.Boxes[box] = playerName;
